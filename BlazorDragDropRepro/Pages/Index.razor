@@ -13,6 +13,7 @@
     GH Issue (bug) related to registering a global event handler
     https://github.com/dotnet/aspnetcore/issues/18449
 *@
+<p>Drag a file from OS and observe <code>NotImplementedException</code> because the DataTranfer object is empty</p>
 <div style="border:1px solid red; height:100px;width:200px;"
      @ondragover:preventDefault
      @ondragover="() => { }"
@@ -22,6 +23,7 @@
 
 <hr />
 <h1>(Working) Drag and Drop with <code>div</code> and JavaScript -- preventDefaults working as expected</h1>
+<p>Drag a file from OS and observe the browser console. A file object will be logged in the console.</p>
 <div style="border:1px solid red; height:100px;width:200px;"
      ondragover="console.log('dragover');event.preventDefault()"
      ondrop="console.log(event.dataTransfer.files[0]);event.preventDefault()">
