@@ -9,14 +9,30 @@
 
 <hr />
 <h1>(Not Working) Drag and Drop with <code>div</code> -- preventDefaults not working</h1>
+@*
+    GH Issue (bug) related to registering a global event handler
+    https://github.com/dotnet/aspnetcore/issues/18449
+*@
 <div style="border:1px solid red; height:100px;width:200px;"
      @ondragover:preventDefault
-     @ondrop:preventDefault>
+     @ondragover="() => { }"
+     @ondrop:preventDefault
+     @ondrop="HandleDrop">
 </div>
 
 <hr />
 <h1>(Working) Drag and Drop with <code>div</code> and JavaScript -- preventDefaults working as expected</h1>
 <div style="border:1px solid red; height:100px;width:200px;"
      ondragover="console.log('dragover');event.preventDefault()"
-     ondrop="console.log('drop');event.preventDefault()">
+     ondrop="console.log(event.dataTransfer.files[0]);event.preventDefault()">
 </div>
+
+@code {
+    private void HandleDrop(DragEventArgs e)
+    {
+        if (!e.DataTransfer.Files.Any())
+        {
+            throw new NotImplementedException("DataTransfer.Files doesn't work?");
+        }
+    }
+}
