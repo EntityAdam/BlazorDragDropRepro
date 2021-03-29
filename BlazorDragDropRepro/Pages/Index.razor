@@ -1,0 +1,22 @@
+﻿@page "/"
+
+<h1>Drag and Drop</h1>
+<h3>Not working as expected - a reproducable</h3>
+
+<hr />
+<h1>(Working) Drag and Drop with <code>InputFile</code></h1>
+<InputFile style="border:1px solid red; height:100px;width:200px;"></InputFile>
+
+<hr />
+<h1>(Not Working) Drag and Drop with <code>div</code> -- preventDefaults not working</h1>
+<div style="border:1px solid red; height:100px;width:200px;"
+     @ondragover:preventDefault
+     @ondrop:preventDefault>
+</div>
+
+<hr />
+<h1>(Working) Drag and Drop with <code>div</code> and JavaScript -- preventDefaults working as expected</h1>
+<div style="border:1px solid red; height:100px;width:200px;"
+     ondragover="console.log('dragover');event.preventDefault()"
+     ondrop="console.log('drop');event.preventDefault()">
+</div>
