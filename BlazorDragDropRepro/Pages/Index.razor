@@ -14,7 +14,7 @@
     https://github.com/dotnet/aspnetcore/issues/18449
 *@
 <p>Drag a file from OS and observe <code>NotImplementedException</code> because the DataTranfer object is empty</p>
-<div style="border:1px solid red; height:100px;width:200px;"
+<div dropzone="copy" style="border:1px solid red; height:100px;width:200px;"
      @ondragover:preventDefault
      @ondragover="() => { }"
      @ondrop:preventDefault
@@ -24,9 +24,18 @@
 <hr />
 <h1>(Working) Drag and Drop with <code>div</code> and JavaScript -- preventDefaults working as expected</h1>
 <p>Drag a file from OS and observe the browser console. A file object will be logged in the console.</p>
-<div style="border:1px solid red; height:100px;width:200px;"
+<div dropzone="copy" style="border:1px solid red; height:100px;width:200px;"
      ondragover="console.log('dragover');event.preventDefault()"
      ondrop="console.log(event.dataTransfer.files[0]);event.preventDefault()">
+</div>
+
+
+<hr />
+<h1>(WORKAROUND) Drag and Drop with <code>div</code> and JavaScript Interop</h1>
+<p>Drag a file from OS and observe the browser console. A file object will be logged in the console.</p>
+<div dropzone="copy" style="border:1px solid red; height:100px;width:200px;"
+     ondragover="event.preventDefault()"
+     ondrop="handleOnDrop(event)">
 </div>
 
 @code {
@@ -36,5 +45,11 @@
         {
             throw new NotImplementedException("DataTransfer.Files doesn't work?");
         }
+    }
+
+    [JSInvokable]
+    public static void Testing(string e)
+    {
+        var result = e.Replace(System.Environment.NewLine, string.Empty);
     }
 }
